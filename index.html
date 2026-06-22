@@ -1,0 +1,1148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Executive Assistant Services</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f7f5f0;
+        color: #111827;
+        line-height: 1.45;
+      }
+
+      .page {
+        width: min(100%, 1280px);
+        min-height: 100vh;
+        margin: 0 auto;
+        padding: 62px 18px 18px;
+      }
+
+      .page-tools {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px;
+        border: 1px solid #d6d3cb;
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .tool-button {
+        padding: 6px 9px;
+        border: 1px solid #d6d3cb;
+        border-radius: 6px;
+        background: #ffffff;
+        color: #0b2347;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .tool-button:hover,
+      .tool-button:focus-visible {
+        background: #fff8dc;
+        outline: 2px solid #b7791f;
+        outline-offset: 1px;
+      }
+
+      .save-status {
+        padding: 0 4px;
+        color: #6b7280;
+        font-size: 11px;
+        white-space: nowrap;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 14px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(28px, 4vw, 52px);
+        letter-spacing: 1px;
+        color: #0b2347;
+        line-height: 1;
+      }
+
+      .subtitle {
+        margin: 8px 0 0;
+        font-size: clamp(14px, 1.4vw, 18px);
+        color: #6b4f1d;
+        font-weight: 600;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+
+      .card {
+        position: relative;
+        background: #ffffff;
+        border: 1px solid #d6d3cb;
+        border-radius: 10px;
+        padding: 14px;
+        min-height: 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+
+      .card.popular {
+        border: 2px solid #b7791f;
+      }
+
+      .tag {
+        display: inline-block;
+        background: #b7791f;
+        color: #ffffff;
+        padding: 4px 8px;
+        border-radius: 100px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      h2 {
+        margin: 0 0 8px;
+        font-size: clamp(18px, 1.7vw, 24px);
+        color: #0b2347;
+      }
+
+      .price {
+        margin: 0 0 8px;
+        font-size: clamp(18px, 1.8vw, 26px);
+        font-weight: bold;
+        color: #111827;
+        line-height: 1.25;
+      }
+
+      .annual {
+        font-size: 14px;
+        color: #4b5563;
+        font-weight: normal;
+      }
+
+      .hours {
+        margin: 0 0 10px;
+        font-weight: bold;
+        color: #6b4f1d;
+      }
+
+      .small-title {
+        margin: 12px 0 6px;
+        font-size: 13px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #374151;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+        font-size: clamp(13px, 1vw, 15px);
+        line-height: 1.35;
+      }
+
+      li {
+        margin-bottom: 4px;
+      }
+
+      .bottom-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 12px;
+      }
+
+      .section {
+        position: relative;
+        background: #ffffff;
+        border: 1px solid #d6d3cb;
+        border-radius: 10px;
+        padding: 12px 14px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+
+      .section h3 {
+        margin: 0 0 8px;
+        color: #0b2347;
+        font-size: clamp(17px, 1.4vw, 22px);
+      }
+
+      .addons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .addon-box {
+        position: relative;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 10px;
+        background: #fafafa;
+      }
+
+      .copy-button {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        z-index: 2;
+        padding: 5px 8px;
+        border: 1px solid #d6d3cb;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.96);
+        color: #0b2347;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-3px);
+        transition:
+          opacity 0.15s,
+          transform 0.15s,
+          background 0.15s;
+      }
+
+      .card:hover > .copy-button,
+      .card:focus-within > .copy-button,
+      .section:hover > .copy-button,
+      .section:focus-within > .copy-button,
+      .addon-box:hover > .copy-button,
+      .addon-box:focus-within > .copy-button {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .copy-button:hover,
+      .copy-button:focus-visible {
+        background: #fff8dc;
+        outline: 2px solid #b7791f;
+        outline-offset: 1px;
+      }
+
+      .addon-price {
+        margin: 0 0 6px;
+        font-weight: bold;
+        color: #6b4f1d;
+      }
+
+      .service-menu {
+        margin-top: 34px;
+      }
+      .plan-heading {
+        margin: 4px 0 10px;
+        text-align: center;
+        color: #0b2347;
+        font-size: clamp(20px, 2vw, 28px);
+      }
+      .menu-heading {
+        max-width: 850px;
+        margin: 0 auto 16px;
+        text-align: center;
+      }
+      .menu-heading h2 {
+        margin-bottom: 7px;
+        font-size: clamp(25px, 3vw, 40px);
+      }
+      .menu-heading p {
+        margin: 0;
+        color: #4b5563;
+        line-height: 1.45;
+      }
+      .menu-block {
+        margin-top: 22px;
+        padding: 20px;
+        border: 1px solid #ded9ce;
+        border-radius: 14px;
+        background: #efede7;
+      }
+      .menu-section-title {
+        margin: 0 0 6px;
+        color: #0b2347;
+        font-size: clamp(20px, 2vw, 28px);
+      }
+      .menu-section-intro {
+        max-width: 780px;
+        margin: 0 0 16px;
+        color: #4b5563;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .menu-grid,
+      .package-grid,
+      .monthly-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .service-panel {
+        position: relative;
+        padding: 18px;
+        border: 1px solid #d6d3cb;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+      .service-panel h4 {
+        margin: 0 0 5px;
+        padding-right: 52px;
+        color: #0b2347;
+        font-size: 18px;
+      }
+      .service-price {
+        display: inline-block;
+        margin: 0 0 10px;
+        padding: 4px 9px;
+        border-radius: 999px;
+        background: #f3e7ce;
+        color: #6b4f1d;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .service-best {
+        margin: 0 0 12px;
+        color: #4b5563;
+        font-size: 14px;
+        font-style: italic;
+        line-height: 1.5;
+      }
+      .service-panel li {
+        margin-bottom: 6px;
+      }
+      .service-note {
+        margin: 10px 0 0;
+        padding: 9px 10px;
+        border-left: 3px solid #b7791f;
+        border-radius: 4px;
+        background: #fff8dc;
+        color: #4b5563;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      .client-note {
+        margin-top: 22px;
+        border: 2px solid #b7791f;
+      }
+
+      .service-panel:hover > .copy-button,
+      .service-panel:focus-within > .copy-button {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      [contenteditable="true"] {
+        outline: 1px dashed transparent;
+        border-radius: 4px;
+        transition:
+          background 0.15s,
+          outline 0.15s;
+      }
+
+      [contenteditable="true"]:hover,
+      [contenteditable="true"]:focus {
+        background: #fff8dc;
+        outline: 1px dashed #b7791f;
+      }
+
+      .note {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 12px;
+        color: #6b7280;
+      }
+
+      @media (max-width: 1100px) {
+        .bottom-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 650px) {
+        .page {
+          padding: 74px 12px 12px;
+        }
+
+        .page-tools {
+          left: 12px;
+          right: 12px;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+        }
+
+        .grid,
+        .addons,
+        .menu-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .menu-block {
+          padding: 14px;
+        }
+      }
+
+      @media print {
+        body {
+          background: #ffffff;
+        }
+
+        .page {
+          padding: 10px;
+        }
+
+        .card,
+        .section {
+          box-shadow: none;
+        }
+
+        .note {
+          display: none;
+        }
+
+        .copy-button {
+          display: none;
+        }
+
+        .page-tools {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-tools" aria-label="Page tools">
+      <span class="save-status" id="saveStatus" aria-live="polite"
+        >Saved locally</span
+      >
+      <button class="tool-button" id="resetPage" type="button">Reset</button>
+      <button class="tool-button" id="importData" type="button">Import</button>
+      <button class="tool-button" id="exportData" type="button">
+        Export data
+      </button>
+      <button class="tool-button" id="exportPng" type="button">PNG</button>
+      <button class="tool-button" id="exportJpeg" type="button">JPEG</button>
+      <input id="dataFile" type="file" accept="application/json,.json" hidden />
+    </div>
+    <main class="page">
+      <header>
+        <h1 contenteditable="true">Executive Assistant Services</h1>
+        <p class="subtitle" contenteditable="true">
+          Simple support to help you stay organized, save time, and run your
+          business with less stress.
+        </p>
+      </header>
+
+      <h2 class="plan-heading">Monthly Support Plans</h2>
+      <section class="grid">
+        <div class="card">
+          <h2 contenteditable="true">Essential Support</h2>
+          <p class="price" contenteditable="true">
+            $199/month<br /><span class="annual"
+              >or $179/month when paid yearly</span
+            >
+          </p>
+          <p class="hours" contenteditable="true">
+            Up to 5 support hours monthly
+          </p>
+          <p class="small-title" contenteditable="true">Includes:</p>
+          <ul contenteditable="true">
+            <li>Calendar management</li>
+            <li>Appointment scheduling</li>
+            <li>Email organization</li>
+            <li>Task tracking</li>
+            <li>Monthly planning call</li>
+            <li>Client follow-ups</li>
+            <li>Basic document creation</li>
+          </ul>
+          <p class="small-title" contenteditable="true">Best for:</p>
+          <ul contenteditable="true">
+            <li>Business owners who need light, reliable support.</li>
+          </ul>
+        </div>
+
+        <div class="card popular">
+          <div class="tag" contenteditable="true">Most Popular</div>
+          <h2 contenteditable="true">Business Support</h2>
+          <p class="price" contenteditable="true">
+            $399/month<br /><span class="annual"
+              >or $349/month when paid yearly</span
+            >
+          </p>
+          <p class="hours" contenteditable="true">
+            Up to 12 support hours monthly
+          </p>
+          <p class="small-title" contenteditable="true">
+            Includes everything in Essential, plus:
+          </p>
+          <ul contenteditable="true">
+            <li>Full email management</li>
+            <li>Customer communication</li>
+            <li>Vendor communication</li>
+            <li>Weekly progress updates</li>
+            <li>Travel planning</li>
+            <li>CRM updates</li>
+            <li>Meeting preparation</li>
+            <li>Follow-up management</li>
+            <li>Monthly strategy call</li>
+          </ul>
+          <p class="small-title" contenteditable="true">Best for:</p>
+          <ul contenteditable="true">
+            <li>Business owners who want consistent support.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2 contenteditable="true">Executive Support</h2>
+          <p class="price" contenteditable="true">
+            $699/month<br /><span class="annual"
+              >or $629/month when paid yearly</span
+            >
+          </p>
+          <p class="hours" contenteditable="true">
+            Up to 25 support hours monthly
+          </p>
+          <p class="small-title" contenteditable="true">
+            Includes everything in Business, plus:
+          </p>
+          <ul contenteditable="true">
+            <li>Priority support</li>
+            <li>Project coordination</li>
+            <li>Team communication support</li>
+            <li>Hiring assistance</li>
+            <li>SOP creation</li>
+            <li>Invoice tracking</li>
+            <li>Workflow organization</li>
+            <li>Operations support</li>
+            <li>Two monthly strategy calls</li>
+          </ul>
+          <p class="small-title" contenteditable="true">Best for:</p>
+          <ul contenteditable="true">
+            <li>Business owners ready to delegate more.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2 contenteditable="true">Flexible Support</h2>
+          <p class="price" contenteditable="true">
+            $99/month<br /><span class="annual"
+              >or $89/month when paid yearly</span
+            >
+          </p>
+          <p class="hours" contenteditable="true">
+            Up to 2 support hours monthly
+          </p>
+          <p class="small-title" contenteditable="true">Includes:</p>
+          <ul contenteditable="true">
+            <li>Quick admin tasks</li>
+            <li>Appointment reminders</li>
+            <li>Light calendar updates</li>
+            <li>Basic task list support</li>
+            <li>Email clean-up support</li>
+          </ul>
+          <p class="small-title" contenteditable="true">Best for:</p>
+          <ul contenteditable="true">
+            <li>Clients who only need small monthly help.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="service-menu">
+        <div class="menu-heading">
+          <h2 contenteditable="true">Business Support Service Menu</h2>
+          <p contenteditable="true">
+            Simple, affordable support for small business owners who need help
+            organizing their client process, templates, admin systems, and
+            ongoing business tasks.
+          </p>
+        </div>
+
+        <div class="menu-block">
+          <h3 class="menu-section-title" contenteditable="true">
+            One-Time Services
+          </h3>
+          <p class="menu-section-intro" contenteditable="true">
+            Choose individual services as needed. Each listed item is priced
+            separately at the amount shown for its group.
+          </p>
+          <div class="menu-grid">
+            <article class="service-panel">
+              <h4 contenteditable="true">Quick Add-Ons</h4>
+              <p class="service-price" contenteditable="true">$5 per item</p>
+              <p class="service-best" contenteditable="true">
+                Best for small, simple updates or copy support.
+              </p>
+              <ul contenteditable="true">
+                <li>Welcome Message Copy Block</li>
+                <li>Thank You Message Copy Block</li>
+                <li>Basic Template Edit</li>
+                <li>Simple Business Copy Refresh</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Essential Templates</h4>
+              <p class="service-price" contenteditable="true">$10 per item</p>
+              <p class="service-best" contenteditable="true">
+                Best for simple client-facing documents and everyday business
+                tools.
+              </p>
+              <ul contenteditable="true">
+                <li>Branded Email Signature Setup</li>
+                <li>Invoice Template</li>
+                <li>Receipt Template</li>
+                <li>Client Welcome Email Template</li>
+                <li>Appointment Policy Confirmation Template</li>
+                <li>Client Intake Question List</li>
+                <li>Simple Client Feedback Form</li>
+                <li>Client FAQ Sheet</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Business Setup Tools</h4>
+              <p class="service-price" contenteditable="true">$15 per item</p>
+              <p class="service-best" contenteditable="true">
+                Best for small systems that help your business feel more
+                organized and professional.
+              </p>
+              <ul contenteditable="true">
+                <li>Client Intake Form Setup</li>
+                <li>Client Welcome Packet Outline</li>
+                <li>Client Onboarding Checklist</li>
+                <li>Simple Cancellation / No-Show Policy Template</li>
+                <li>Basic Business Resource List</li>
+                <li>30-Minute Business Support Session</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Premium Business Tools</h4>
+              <p class="service-price" contenteditable="true">$25 per item</p>
+              <p class="service-best" contenteditable="true">
+                Best for customized tools that require more planning, structure,
+                or design.
+              </p>
+              <ul contenteditable="true">
+                <li>Mini Service Menu Design</li>
+                <li>Lead Tracker Setup</li>
+                <li>Basic Monthly Admin Report</li>
+                <li>Simple SOP for One Business Process</li>
+                <li>Custom Checklist</li>
+                <li>Custom Flyer</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Custom Form Setup</h4>
+              <p class="service-price" contenteditable="true">
+                $30 per service
+              </p>
+              <p class="service-best" contenteditable="true">
+                Best for businesses that need a more personalized client form.
+              </p>
+              <ul contenteditable="true">
+                <li>Custom Questionnaire Sent Directly to Email</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Policy Writing</h4>
+              <p class="service-price" contenteditable="true">$50 per policy</p>
+              <p class="service-best" contenteditable="true">
+                Best for businesses that need a clear written policy for
+                clients.
+              </p>
+              <ul contenteditable="true">
+                <li>Policy Writing</li>
+              </ul>
+              <p class="service-note" contenteditable="true">
+                Note: Policy writing support is for general business
+                communication purposes. Legal accuracy should be reviewed by the
+                client or a qualified professional when needed.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="menu-block">
+          <h3 class="menu-section-title" contenteditable="true">
+            One-Time Service Packages
+          </h3>
+          <p class="menu-section-intro" contenteditable="true">
+            Packages include the complete group of services listed inside each
+            box.
+          </p>
+          <div class="menu-grid package-grid">
+            <article class="service-panel">
+              <h4 contenteditable="true">Template Starter Kit</h4>
+              <p class="service-price" contenteditable="true">$29</p>
+              <p class="service-best" contenteditable="true">
+                Best for businesses that need simple, polished templates to get
+                started.
+              </p>
+              <p class="small-title" contenteditable="true">
+                Includes 3 essential templates, such as:
+              </p>
+              <ul contenteditable="true">
+                <li>Invoice Template</li>
+                <li>Receipt Template</li>
+                <li>Client Welcome Email Template</li>
+                <li>Appointment Policy Confirmation Template</li>
+                <li>Client FAQ Sheet</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Client Setup Bundle</h4>
+              <p class="service-price" contenteditable="true">$49</p>
+              <p class="service-best" contenteditable="true">
+                Best for businesses that need a smoother client process from
+                first contact to follow-up.
+              </p>
+              <p class="small-title" contenteditable="true">Includes:</p>
+              <ul contenteditable="true">
+                <li>Client Welcome Email Template</li>
+                <li>Client Intake Form Setup</li>
+                <li>Simple Client Feedback Form</li>
+                <li>Appointment Policy Confirmation Template</li>
+                <li>Client Onboarding Checklist</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Productivity Bundle</h4>
+              <p class="service-price" contenteditable="true">$59</p>
+              <p class="service-best" contenteditable="true">
+                Best for business owners who need help staying organized and
+                tracking important tasks.
+              </p>
+              <p class="small-title" contenteditable="true">Includes:</p>
+              <ul contenteditable="true">
+                <li>Lead Tracker Setup</li>
+                <li>Client Onboarding Checklist</li>
+                <li>Simple SOP for One Business Process</li>
+                <li>Basic Monthly Admin Report</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Business Bundle</h4>
+              <p class="service-price" contenteditable="true">$79</p>
+              <p class="service-best" contenteditable="true">
+                Best for businesses that want a more complete starter setup.
+              </p>
+              <p class="small-title" contenteditable="true">Includes:</p>
+              <ul contenteditable="true">
+                <li>Branded Email Signature Setup</li>
+                <li>Invoice Template</li>
+                <li>Receipt Template</li>
+                <li>Client Welcome Email Template</li>
+                <li>Client Intake Form Setup</li>
+                <li>Client FAQ Sheet</li>
+                <li>Simple Cancellation / No-Show Policy Template</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Business Organization Audit</h4>
+              <p class="service-price" contenteditable="true">$99</p>
+              <p class="service-best" contenteditable="true">
+                Best for business owners who feel overwhelmed and need help
+                identifying what to fix first.
+              </p>
+              <p class="small-title" contenteditable="true">Includes:</p>
+              <ul contenteditable="true">
+                <li>Review of current business organization</li>
+                <li>Review of client process and admin flow</li>
+                <li>List of gaps, issues, or missing systems</li>
+                <li>Simple improvement plan</li>
+                <li>Recommended next steps</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Business Systems Setup</h4>
+              <p class="service-price" contenteditable="true">
+                Starting at $149
+              </p>
+              <p class="service-best" contenteditable="true">
+                Best for businesses that need hands-on setup of templates,
+                forms, trackers, and workflows.
+              </p>
+              <p class="small-title" contenteditable="true">May include:</p>
+              <ul contenteditable="true">
+                <li>Client intake system</li>
+                <li>Client onboarding setup</li>
+                <li>Lead tracker setup</li>
+                <li>Basic workflow organization</li>
+                <li>Business templates</li>
+                <li>Simple SOP creation</li>
+                <li>Admin process setup</li>
+              </ul>
+              <p class="service-note" contenteditable="true">
+                Final price depends on the size and complexity of the setup.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="menu-block">
+          <h3 class="menu-section-title" contenteditable="true">
+            Monthly Support Add-Ons
+          </h3>
+          <p class="menu-section-intro" contenteditable="true">
+            Choose add-ons individually. Each listed add-on is billed separately
+            at the monthly rate shown for its group.
+          </p>
+          <div class="menu-grid monthly-grid">
+            <article class="service-panel">
+              <h4 contenteditable="true">Light Maintenance</h4>
+              <p class="service-price" contenteditable="true">
+                $10/month per add-on
+              </p>
+              <p class="service-best" contenteditable="true">
+                Best for simple reminders, tracking, and light recurring
+                support.
+              </p>
+              <ul contenteditable="true">
+                <li>Client Birthday / Anniversary Tracker with Reminders</li>
+                <li>Basic Newsletter Calendar Support</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Admin + Marketing Support</h4>
+              <p class="service-price" contenteditable="true">
+                $25/month per add-on
+              </p>
+              <p class="service-best" contenteditable="true">
+                Best for business owners who need light monthly help staying
+                consistent.
+              </p>
+              <ul contenteditable="true">
+                <li>Newsletter Support</li>
+                <li>Marketing Coordination</li>
+                <li>Event Planning Assistance</li>
+                <li>Policy / FAQ Updates</li>
+                <li>Basic Monthly Admin Report Updates</li>
+              </ul>
+              <p class="service-note" contenteditable="true">
+                Note: Policy and FAQ updates are for general business
+                communication purposes. Legal accuracy should be reviewed by the
+                client or a qualified professional when needed.
+              </p>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Client Support</h4>
+              <p class="service-price" contenteditable="true">
+                $50/month per add-on
+              </p>
+              <p class="service-best" contenteditable="true">
+                Best for businesses that need help managing client communication
+                and follow-up.
+              </p>
+              <ul contenteditable="true">
+                <li>Client Onboarding / Follow-Up Support</li>
+                <li>Customer Service Support</li>
+                <li>Client Management Support</li>
+                <li>Project Management Support</li>
+              </ul>
+            </article>
+            <article class="service-panel">
+              <h4 contenteditable="true">Premium Operations Support</h4>
+              <p class="service-price" contenteditable="true">
+                $75+/month per service
+              </p>
+              <p class="service-best" contenteditable="true">
+                Best for businesses that need more detailed, ongoing support.
+              </p>
+              <ul contenteditable="true">
+                <li>Basic Bookkeeping Organization</li>
+                <li>Sales Call Support</li>
+                <li>Ongoing Client Management</li>
+                <li>Business Operations Support</li>
+              </ul>
+              <p class="service-note" contenteditable="true">
+                Final price depends on workload, number of clients, and level of
+                support needed.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <article class="service-panel client-note">
+          <h4 contenteditable="true">Suggested Note for Clients</h4>
+          <p contenteditable="true">
+            All services are designed to help make your business more organized,
+            professional, and easier to manage. Custom requests are available,
+            and pricing may vary depending on the amount of detail, setup, or
+            ongoing support needed.
+          </p>
+        </article>
+      </section>
+
+      <p class="note" contenteditable="true">
+        Tip: Click any text to edit. Click inside bullet lists and press Enter
+        to add more bullet points.
+      </p>
+    </main>
+    <script>
+      const storageKey = "executive-assistant-business-model-v2";
+      const editableFields = [
+        ...document.querySelectorAll('[contenteditable="true"]'),
+      ];
+      const saveStatus = document.getElementById("saveStatus");
+
+      function getPageData() {
+        return editableFields.map((field) => field.innerHTML);
+      }
+
+      function savePage() {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(getPageData()));
+          saveStatus.textContent = "Saved locally";
+        } catch {
+          saveStatus.textContent = "Could not save";
+        }
+      }
+
+      function restorePage(data) {
+        if (!Array.isArray(data)) return false;
+
+        const menuStart = editableFields.indexOf(
+          document.querySelector('.service-menu [contenteditable="true"]'),
+        );
+
+        if (data.length === editableFields.length + 8) {
+          const oldIndividualPrices = new Set([
+            "$5",
+            "$10",
+            "$15",
+            "$25",
+            "$30",
+            "$50",
+            "$10/month",
+            "$25/month",
+            "$50/month",
+            "$75+/month",
+          ]);
+          let newFieldsSeen = 0;
+
+          editableFields.forEach((field, index) => {
+            if (field.classList.contains("menu-section-intro")) {
+              newFieldsSeen += 1;
+              return;
+            }
+
+            const oldIndex =
+              index < menuStart ? index : index + 11 - newFieldsSeen;
+            const oldValue = data[oldIndex];
+            if (
+              typeof oldValue === "string" &&
+              !(
+                field.classList.contains("service-price") &&
+                oldIndividualPrices.has(oldValue)
+              )
+            ) {
+              field.innerHTML = oldValue;
+            }
+          });
+        } else if (data.length < editableFields.length) {
+          editableFields.slice(0, menuStart).forEach((field, index) => {
+            if (typeof data[index] === "string") field.innerHTML = data[index];
+          });
+          if (typeof data[data.length - 1] === "string") {
+            editableFields[editableFields.length - 1].innerHTML =
+              data[data.length - 1];
+          }
+        } else {
+          editableFields.forEach((field, index) => {
+            if (typeof data[index] === "string") field.innerHTML = data[index];
+          });
+        }
+        savePage();
+        return true;
+      }
+
+      try {
+        const storedPage = JSON.parse(localStorage.getItem(storageKey));
+        if (storedPage) restorePage(storedPage);
+      } catch {
+        saveStatus.textContent = "Could not restore";
+      }
+
+      let saveTimer;
+      document.addEventListener("input", (event) => {
+        if (!event.target.closest('[contenteditable="true"]')) return;
+        saveStatus.textContent = "Saving…";
+        window.clearTimeout(saveTimer);
+        saveTimer = window.setTimeout(savePage, 300);
+      });
+
+      const copyableBoxes = document.querySelectorAll(
+        ".card, .section, .addon-box, .service-panel",
+      );
+
+      copyableBoxes.forEach((box) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "copy-button";
+        button.textContent = "Copy";
+        button.setAttribute("aria-label", "Copy this box's contents");
+
+        button.addEventListener("click", async () => {
+          const copy = box.cloneNode(true);
+          copy
+            .querySelectorAll(".copy-button")
+            .forEach((item) => item.remove());
+          const text = copy.innerText.trim();
+
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch {
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            textarea.style.position = "fixed";
+            textarea.style.opacity = "0";
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            textarea.remove();
+          }
+
+          button.textContent = "Copied!";
+          window.setTimeout(() => {
+            button.textContent = "Copy";
+          }, 1200);
+        });
+
+        box.prepend(button);
+      });
+
+      function downloadBlob(blob, filename) {
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+        window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+      }
+
+      document.getElementById("exportData").addEventListener("click", () => {
+        const blob = new Blob([JSON.stringify(getPageData(), null, 2)], {
+          type: "application/json",
+        });
+        downloadBlob(blob, "business-model-data.json");
+      });
+
+      document.getElementById("resetPage").addEventListener("click", () => {
+        localStorage.removeItem(storageKey);
+        window.location.reload();
+      });
+
+      const dataFile = document.getElementById("dataFile");
+      document.getElementById("importData").addEventListener("click", () => {
+        dataFile.click();
+      });
+
+      dataFile.addEventListener("change", async () => {
+        const file = dataFile.files[0];
+        if (!file) return;
+
+        try {
+          const data = JSON.parse(await file.text());
+          saveStatus.textContent = restorePage(data)
+            ? "Imported and saved"
+            : "Invalid data file";
+        } catch {
+          saveStatus.textContent = "Invalid data file";
+        }
+        dataFile.value = "";
+      });
+
+      async function exportImage(format) {
+        const target = document.querySelector(".page");
+        const clone = target.cloneNode(true);
+        clone
+          .querySelectorAll(".copy-button, .note")
+          .forEach((item) => item.remove());
+        clone.querySelectorAll('[contenteditable="true"]').forEach((item) => {
+          item.removeAttribute("contenteditable");
+        });
+
+        const width = Math.ceil(target.scrollWidth);
+        const height = Math.ceil(target.scrollHeight);
+        clone.style.width = `${width}px`;
+        clone.style.height = "auto";
+        clone.style.minHeight = `${height}px`;
+        clone.style.background = "#f7f5f0";
+
+        const css = [...document.styleSheets]
+          .flatMap((sheet) => [...sheet.cssRules].map((rule) => rule.cssText))
+          .join("\n");
+        const markup = new XMLSerializer().serializeToString(clone);
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml"><style>${css}</style>${markup}</div></foreignObject></svg>`;
+        const imageUrl = URL.createObjectURL(
+          new Blob([svg], { type: "image/svg+xml;charset=utf-8" }),
+        );
+        const image = new Image();
+
+        await new Promise((resolve, reject) => {
+          image.onload = resolve;
+          image.onerror = reject;
+          image.src = imageUrl;
+        });
+
+        const canvas = document.createElement("canvas");
+        const scale = Math.min(2, 8192 / Math.max(width, height));
+        canvas.width = Math.round(width * scale);
+        canvas.height = Math.round(height * scale);
+        const context = canvas.getContext("2d");
+        context.scale(scale, scale);
+        context.fillStyle = "#f7f5f0";
+        context.fillRect(0, 0, width, height);
+        context.drawImage(image, 0, 0, width, height);
+        URL.revokeObjectURL(imageUrl);
+
+        const mimeType = format === "jpeg" ? "image/jpeg" : "image/png";
+        const blob = await new Promise((resolve) =>
+          canvas.toBlob(resolve, mimeType, 0.94),
+        );
+        downloadBlob(
+          blob,
+          `business-model.${format === "jpeg" ? "jpg" : "png"}`,
+        );
+      }
+
+      document
+        .getElementById("exportPng")
+        .addEventListener("click", async () => {
+          saveStatus.textContent = "Creating PNG…";
+          try {
+            await exportImage("png");
+            saveStatus.textContent = "PNG exported";
+          } catch {
+            saveStatus.textContent = "PNG export failed";
+          }
+        });
+
+      document
+        .getElementById("exportJpeg")
+        .addEventListener("click", async () => {
+          saveStatus.textContent = "Creating JPEG…";
+          try {
+            await exportImage("jpeg");
+            saveStatus.textContent = "JPEG exported";
+          } catch {
+            saveStatus.textContent = "JPEG export failed";
+          }
+        });
+    </script>
+  </body>
+</html>
